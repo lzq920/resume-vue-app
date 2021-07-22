@@ -6,13 +6,9 @@
 import { onMounted, defineProps, defineEmits, ref } from 'vue';
 import * as monaco from 'monaco-editor';
 import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
-import JsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker';
 
 self.MonacoEnvironment = {
   getWorker(workerId, label) {
-    if (label === 'json') {
-      return new JsonWorker();
-    }
     return new EditorWorker();
   },
 };
@@ -28,15 +24,13 @@ const dom = ref();
 let instance;
 
 onMounted(() => {
-  const jsonModel = monaco.editor.createModel(
+  const markdownModel = monaco.editor.createModel(
     props.modelValue,
-    'json',
-    monaco.Uri.parse('json://grid/settings.json')
+    'markdown',
   );
 
   instance = monaco.editor.create(dom.value, {
-    model: jsonModel,
-    tabSize: 2,
+    model: markdownModel,
     automaticLayout: true,
     scrollBeyondLastLine: false,
   });
@@ -50,6 +44,6 @@ onMounted(() => {
 
 <style scoped>
 .editor {
-  height: 500px;
+  height: 100vh;
 }
 </style>
