@@ -6,7 +6,6 @@
 import { onMounted, defineProps, defineEmits, ref } from 'vue';
 import * as monaco from 'monaco-editor';
 import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
-
 self.MonacoEnvironment = {
   getWorker(workerId, label) {
     return new EditorWorker();
